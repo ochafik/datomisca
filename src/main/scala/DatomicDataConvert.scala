@@ -17,7 +17,7 @@
  package datomisca
 
 /** DatomicData to Scala reader specific */
-trait DD2ScalaReader[-DD <: DatomicData, A] {
+trait DD2ScalaReader[DD <: DatomicData, A] {
   def read(dd: DD): A
 }
 
@@ -27,7 +27,7 @@ object DD2ScalaReader extends DD2ScalaReaderImplicits {
   }
 }
 
-trait DD2DDReader[+DD <: DatomicData] {
+trait DD2DDReader[DD <: DatomicData] {
   def read(d: DatomicData): DD
 }
 
@@ -37,7 +37,7 @@ object DD2DDReader extends DD2DDReaderImplicits{
   }
 }
 
-trait DDReader[-DD <: DatomicData, +A] {
+trait DDReader[DD <: DatomicData, A] {
   def read(dd: DD): A
 }
 

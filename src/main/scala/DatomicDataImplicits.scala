@@ -62,11 +62,26 @@ trait DD2DDReaderImplicits {
 }
 
 trait DDReaderImplicits {
-  implicit def Datomicdata2DD[DD <: DatomicData](implicit dd2dd: DD2DDReader[DD]): DDReader[DatomicData, DD] = DDReader{ dd: DatomicData => dd2dd.read(dd) }
   /*implicit def genericDDReader[A](implicit dd2t: DD2ScalaReader[DatomicData, A]): DDReader[DatomicData, A] = 
     DDReader{ dd: DatomicData =>
       dd2t.read(dd)
     }*/
+
+  // implicit def Datomicdata2DD[DD <: DatomicData](implicit dd2dd: DD2DDReader[DD]): DDReader[DatomicData, DD] = DDReader{ dd: DatomicData => dd2dd.read(dd) }
+  implicit def XDatomicData2DD[DD <: DatomicData]: DDReader[DatomicData, DD] = DDReader(_.asInstanceOf[DD])
+  /*
+  implicit val XDatomicData2DString  :DDReader[DatomicData, DString] = DDReader(_.asInstanceOf[DString])
+  implicit val XDatomicData2DLong    :DDReader[DatomicData, DLong] = DDReader(_.asInstanceOf[DLong])
+  implicit val XDatomicData2DBoolean :DDReader[DatomicData, DBoolean] = DDReader(_.asInstanceOf[DBoolean])
+  implicit val XDatomicData2DFloat   :DDReader[DatomicData, DFloat] = DDReader(_.asInstanceOf[DFloat])
+  implicit val XDatomicData2DDouble  :DDReader[DatomicData, DDouble] = DDReader(_.asInstanceOf[DDouble])
+  implicit val XDatomicData2DBigInt  :DDReader[DatomicData, DBigInt] = DDReader(_.asInstanceOf[DBigInt])
+  implicit val XDatomicData2DBigDec  :DDReader[DatomicData, DBigDec] = DDReader(_.asInstanceOf[DBigDec])
+  implicit val XDatomicData2DInstant :DDReader[DatomicData, DInstant] = DDReader(_.asInstanceOf[DInstant])
+  implicit val XDatomicData2DEntity  :DDReader[DatomicData, DEntity] = DDReader(_.asInstanceOf[DEntity])
+  implicit val XDatomicData2DSet     :DDReader[DatomicData, DSet] = DDReader(_.asInstanceOf[DSet])
+  implicit val XDatomicData2DRef     :DDReader[DatomicData, DRef] = DDReader(_.asInstanceOf[DRef])
+  */
 
   implicit val DatomicData2String:  DDReader[DatomicData, String]         = DDReader(_.asInstanceOf[DString] .underlying)
   implicit val DatomicData2Long:    DDReader[DatomicData, Long]           = DDReader(_.asInstanceOf[DLong]   .underlying)
